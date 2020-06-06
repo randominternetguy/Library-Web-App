@@ -45,6 +45,10 @@ function hideForm(){
 
 const mainBooksLibraryElement = document.querySelector('#main-books');
 function render(){
+	// remove all the books in the document.	
+	mainBooksLibraryElement.innerHTML = '';	
+
+	// add all the books in library
 	for (let i = 0; i < myLibrary.length; i++){
 		const book = myLibrary[i];
 		let bookElement = document.createElement('div');
@@ -54,7 +58,19 @@ function render(){
 		<p>${book.title}</p>
 		<p>${book.author}</p>
 		<p>${book.pages}</p>
+		<button class='remove-book'>Finished<button>
 		`
 		mainBooksLibraryElement.appendChild(bookElement);
+
+		// add event listeners to buttons to remove the books
+		let bookRemoveButton = document.querySelectorAll('.remove-book');
+		bookRemoveButton.forEach(button => {
+			button.addEventListener('click', () => {
+				// remove book from library.
+				mainBooksLibraryElement.removeChild(button.parentNode);
+				
+			});
+		})
 	}
 }
+
