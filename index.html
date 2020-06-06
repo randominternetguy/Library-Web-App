@@ -12,13 +12,17 @@
     <div id='book-headings'>
       <h2>Your Library</h2>
     </div>
+		<div id='main-books'>
+			
+		</div>
   </div>
-  <form>
+  <form id='form' onsubmit='submitForm()'>
     <div id='close-form-button'>x</div>
     <p>Add Book</p>
-    <input type='text' placeholder='Title' id='title-input'>
-    <input type='text' placeholder='Author' id='author-input'>
-    <input type='number' placeholder='Pages' id='pages-input'>
+    <input type='text' placeholder='Title' id='title-input' required>
+    <input type='text' placeholder='Author' id='author-input' required>
+    <input type='number' placeholder='Pages' id='pages-input' required>
+    <input type="submit" value="Submit">
   </form>
   <div id='add-book-button'></div>
 </body>

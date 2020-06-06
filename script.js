@@ -1,41 +1,60 @@
 let myLibrary = [];
 
-// all DOM element variables
-const mainElement = document.querySelector('#main');
-const form = document.querySelector('form');
-const body = document.querySelector('body');
-
-// all button variables
-const addBookButton = document.querySelector('#add-book-button');
-const closeFormButton = document.querySelector('#close-form-button');
-
-// make a Book constructor.
 function Book(title, author, pages){
 	this.title = title;
 	this.author = author;
 	this.pages = pages;
 }
 
-function addBookToLibraryn(book){
-	myLibrary.push(book);
-}
 
-function render(library){
-	for (let book = 0; book <= library.length; book++){
-		let bookElement = document.createElement('div');
-		bookElement.textContent = library[book];
-		bookElement.classList.add('book');
-		mainElement.appendChild(bookElement);
-	}
-}
+// form control event listeners.
+const body = document.querySelector('body');
+const form = document.querySelector('#form');
 
-// show the form field when user clicks the add button
+const addBookButton = document.querySelector('#add-book-button');
 addBookButton.addEventListener('click', () => {
-	form.style.display = 'flex';
-	body.style.cssText = 'background-color: #c7c7c7';
+	showForm();
 });
 
-closeFormButton.addEventListener('click', () => {
+const closeFormButton = document.querySelector('#close-form-button');
+closeFormButton.addEventListener('click', ()  => {
+	hideForm();	
+});
+
+function submitForm(){
+	let author = document.querySelector('#author-input').value;
+	let title= document.querySelector('#title-input').value;
+	let pages = document.querySelector('#pages-input').value;
+	myLibrary.push(new Book(title, author, pages));
+	
+	event.preventDefault();	
+	
+	hideForm();
+	render();	
+}
+
+function showForm(){
+	form.style.display = 'flex';
+	body.style.cssText = 'background-color: #ccc';
+}
+
+function hideForm(){
 	form.style.display = 'none';
 	body.style.cssText = 'background-color: #c3efbf';
-});
+}
+
+const mainBooksLibraryElement = document.querySelector('#main-books');
+function render(){
+	for (let i = 0; i < myLibrary.length; i++){
+		const book = myLibrary[i];
+		let bookElement = document.createElement('div');
+		bookElement.classList.add('book');
+		bookElement.innerHTML = 
+		`
+		<p>${book.title}</p>
+		<p>${book.author}</p>
+		<p>${book.pages}</p>
+		`
+		mainBooksLibraryElement.appendChild(bookElement);
+	}
+}
